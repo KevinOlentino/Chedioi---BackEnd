@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApiBackendTeste</name>
+    </assembly>
+    <members>
+        <member name="P:WebApiBackendTeste.Context.EstadosContext.Estados">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
