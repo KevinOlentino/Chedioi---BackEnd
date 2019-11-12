@@ -14,11 +14,11 @@ using WebApiBackendTeste.Model;
 namespace WebApiBackendTeste.Controller
 
 {
-    public class Estados1Controller : ApiController
+    public class EstadosController : ApiController
     {        
         public ContextModel db = new ContextModel();
 
-        public Estados1Controller()
+        public EstadosController()
         {
             db.Configuration.ProxyCreationEnabled = false;
         }      
