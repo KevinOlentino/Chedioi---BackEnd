@@ -4,7 +4,7 @@
         <name>WebApiBackendTeste</name>
     </assembly>
     <members>
-        <member name="P:WebApiBackendTeste.Context.EstadosContext.Estados">
+        <member name="P:WebApiBackendTeste.Context.ContextModel.Estados">
             <summary>
             
             </summary>

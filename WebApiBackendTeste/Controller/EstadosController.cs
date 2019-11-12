@@ -1,35 +1,125 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
+using WebApiBackendTeste.Context;
 using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Controller
+
 {
-    public class EstadosController : ApiController
-    {
-      
-        private static List<Estados> Estados = new List<Estados>();
-        
-        public List<Estados> Get()
+    public class Estados1Controller : ApiController
+    {        
+        public ContextModel db = new ContextModel();
+
+        public Estados1Controller()
         {
-            
-            return Estados;
+            db.Configuration.ProxyCreationEnabled = false;
+        }      
+
+        // GET: api/Estados1
+        public IQueryable<Estados> GetEstados()
+        {
+            return db.Estados;
         }
-        [HttpPost]
-        public void Post(Estados estados)
+
+        // GET: api/Estados1/5
+        [ResponseType(typeof(Estados))]
+        public IHttpActionResult GetEstados(int id)
         {
-           
-            if (!string.IsNullOrEmpty(estados.Descricao))
+            Estados estados = db.Estados.Find(id);
+            if (estados == null)
             {
-                Estados.Add(new Estados());
+                return NotFound();
             }
+
+            return Ok(estados);
         }
-        public void Delete(string Nome)
+
+        // PUT: api/Estados1/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutEstados(int id, Estados estados)
         {
-            Estados.RemoveAt(Estados.IndexOf(Estados.FirstOrDefault(x => x.Descricao.Equals(Nome))));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != estados.Idestado)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(estados).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EstadosExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Estados1
+        [ResponseType(typeof(Estados))]
+        public IHttpActionResult PostEstados(Estados estados)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Estados.Add(estados);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = estados.Idestado }, estados);
+        }
+
+        // DELETE: api/Estados1/5
+        [ResponseType(typeof(Estados))]
+        public IHttpActionResult DeleteEstados(int id)
+        {
+            Estados estados = db.Estados.Find(id);
+            if (estados == null)
+            {
+                return NotFound();
+            }
+
+            db.Estados.Remove(estados);
+            db.SaveChanges();
+
+            return Ok(estados);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool EstadosExists(int id)
+        {
+            return db.Estados.Count(e => e.Idestado == id) > 0;
         }
     }
 }

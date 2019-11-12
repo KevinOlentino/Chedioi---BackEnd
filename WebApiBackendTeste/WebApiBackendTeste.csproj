@@ -114,8 +114,8 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Context\EstadosContext.cs" />
-    <Compile Include="Controller\Estados1Controller.cs" />
+    <Compile Include="Context\ContextModel.cs" />
+    <Compile Include="Controller\EstadosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

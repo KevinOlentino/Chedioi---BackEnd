@@ -7,7 +7,7 @@ using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Context
 {
-    public class EstadosContext : DbContext
+    public class ContextModel : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -16,7 +16,7 @@ namespace WebApiBackendTeste.Context
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public EstadosContext() : base("name=EstadosContext")
+        public ContextModel() : base("name=ContextModel")
         {
             
         }     
