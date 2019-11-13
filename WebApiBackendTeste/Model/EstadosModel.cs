@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WebApiBackendTeste.HateOAS;
 
 namespace WebApiBackendTeste.Model
 {
     [Table("Estados")]
-    public class Estados : Link
+    public class Estado : Link
     {
         [Key]
         [Column("IdEstado")]
@@ -21,11 +22,4 @@ namespace WebApiBackendTeste.Model
         [MaxLength(2)]
         public string UF { get; set; }
     }
-    public abstract class Link
-    {
-        public string Href { get; set; }
-        public string Rel { get; set; }
-        public string Metodo { get; set; }
-    }
-
 }

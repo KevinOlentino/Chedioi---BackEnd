@@ -117,10 +117,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\ContextModel.cs" />
     <Compile Include="Controller\EstadosController.cs" />
+    <Compile Include="Controller\LinksController.cs" />
+    <Compile Include="Formatter\HalJsonMediaTypeFormatter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HateOAS\Link.cs" />
     <Compile Include="Model\EstadosModel.cs" />
+    <Compile Include="Model\ResourceCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

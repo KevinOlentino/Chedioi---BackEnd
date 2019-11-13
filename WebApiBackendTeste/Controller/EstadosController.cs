@@ -8,7 +8,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Routing;
 using WebApiBackendTeste.Context;
+using WebApiBackendTeste.HateOAS;
 using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Controller
@@ -18,33 +20,52 @@ namespace WebApiBackendTeste.Controller
     {        
         public ContextModel db = new ContextModel();
 
+        private readonly ContextModel _context;
+      //  private readonly UrlHelper _urlHelper;
+      /*  public EstadosController (ContextModel context, UrlHelper urlHelper)
+        {
+            _context = context;
+            _urlHelper = urlHelper;
+        }*/
         public EstadosController()
         {
             db.Configuration.ProxyCreationEnabled = false;
         }      
 
         // GET: api/Estados1
-        public IQueryable<Estados> GetEstados()
+        public IQueryable<Estado> GetEstados()
         {
+            var Estados = GetEstados();
+            foreach(var Estado in Estados) {
+                var selflink = new Link
+                {
+                    Rel = "Self",
+                    Href = Url.Route("Api Default", new
+                    {
+                        controller = "EstadosController",
+                        id = Estado.IdEstado
+                    })
+                };
+            }
             return db.Estados;
         }
 
         // GET: api/Estados1/5
-        [ResponseType(typeof(Estados))]
+        [ResponseType(typeof(Estado))]
         public IHttpActionResult GetEstados(int id)
         {
-            Estados estados = db.Estados.Find(id);
+            Estado estados = db.Estados.Find(id);
             if (estados == null)
             {
                 return NotFound();
             }
-
-            return Ok(estados);
+        //    GerarLinks(estados);
+                return Ok(estados);
         }
 
         // PUT: api/Estados1/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEstados(int id, Estados estados)
+        public IHttpActionResult PutEstados(int id, Estado estados)
         {
             if (!ModelState.IsValid)
             {
@@ -55,6 +76,7 @@ namespace WebApiBackendTeste.Controller
             {
                 return BadRequest();
             }
+         //   GerarLinks(estados);
 
             db.Entry(estados).State = EntityState.Modified;
 
@@ -78,25 +100,24 @@ namespace WebApiBackendTeste.Controller
         }
 
         // POST: api/Estados1
-        [ResponseType(typeof(Estados))]
-        public IHttpActionResult PostEstados(Estados estados)
-        {
+        [ResponseType(typeof(Estado))]
+        public IHttpActionResult PostEstados(Estado estados)
+        {            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            db.Estados.Add(estados);
+            db.Estados.Add(estados);            
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = estados.IdEstado }, estados);
         }
 
         // DELETE: api/Estados1/5
-        [ResponseType(typeof(Estados))]
+        [ResponseType(typeof(Estado))]
         public IHttpActionResult DeleteEstados(int id)
         {
-            Estados estados = db.Estados.Find(id);
+            Estado estados = db.Estados.Find(id);
             if (estados == null)
             {
                 return NotFound();
@@ -116,7 +137,25 @@ namespace WebApiBackendTeste.Controller
             }
             base.Dispose(disposing);
         }
+       /* public void GerarLinks(Estado estados)
+        {
+            estados.Link.Add(new Link(_urlHelper.Link(nameof(GetEstados), new { id = estados.IdEstado }), rel: "self", metodo: "GET"));
 
+            estados.Link.Add(new Link(_urlHelper.Link(nameof(PutEstados), new { id = estados.IdEstado }), rel: "update-estados", metodo: "PUT"));
+
+            estados.Link.Add(new Link(_urlHelper.Link(nameof(DeleteEstados), new { id = estados.IdEstado }), rel: "delete-estados", metodo: "DELETE"));
+
+        }*/
+
+        public abstract class UrlHelper
+        {
+            public abstract string Link(string routeName,
+              IDictionary<string, object> routeValues);
+            public abstract string Link(string routeName, object routeValues);
+            public abstract string Route(string routeName,
+              IDictionary<string, object> routeValues);
+            public abstract string Route(string routeName, object routeValues);
+        }
         private bool EstadosExists(int id)
         {
             return db.Estados.Count(e => e.IdEstado == id) > 0;

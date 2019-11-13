@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebApiBackendTeste.Formatter;
 using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste
@@ -18,10 +19,12 @@ namespace WebApiBackendTeste
                 defaults: new { id = RouteParameter.Optional }
 
             );
-      /*   var json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
-            config.Formatters.Remove(config.Formatters.XmlFormatter);
-            json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;*/
+            config.Formatters.Add(new HalJsonMediaTypeFormatter());
+
+            /*   var json = config.Formatters.JsonFormatter;
+                  json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+                  config.Formatters.Remove(config.Formatters.XmlFormatter);
+                  json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;*/
 
 
         }

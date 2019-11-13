@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WebApiBackendTeste.HateOAS;
 using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Context
@@ -24,6 +25,7 @@ namespace WebApiBackendTeste.Context
         /// <summary>
         /// 
         /// </summary>
-        public DbSet<Estados> Estados { get; set; }
+        public DbSet<Estado> Estados { get; set; }
+        public DbSet<Link> Link { get; set; }
     }
 }

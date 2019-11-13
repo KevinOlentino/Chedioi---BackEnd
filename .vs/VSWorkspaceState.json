@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\WebApiBackendTeste"
+    "\\WebApiBackendTeste",
+    "\\WebApiBackendTeste\\Context"
   ],
   "SelectedNode": "\\WebApiBackendTeste\\WebApiBackendTeste.sln",
   "PreviewInSolutionExplorer": false
