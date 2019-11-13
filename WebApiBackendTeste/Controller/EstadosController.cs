@@ -51,7 +51,7 @@ namespace WebApiBackendTeste.Controller
                 return BadRequest(ModelState);
             }
 
-            if (id != estados.Idestado)
+            if (id != estados.IdEstado)
             {
                 return BadRequest();
             }
@@ -89,7 +89,7 @@ namespace WebApiBackendTeste.Controller
             db.Estados.Add(estados);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = estados.Idestado }, estados);
+            return CreatedAtRoute("DefaultApi", new { id = estados.IdEstado }, estados);
         }
 
         // DELETE: api/Estados1/5
@@ -119,7 +119,7 @@ namespace WebApiBackendTeste.Controller
 
         private bool EstadosExists(int id)
         {
-            return db.Estados.Count(e => e.Idestado == id) > 0;
+            return db.Estados.Count(e => e.IdEstado == id) > 0;
         }
     }
 }

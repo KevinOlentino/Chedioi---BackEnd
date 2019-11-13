@@ -103,11 +103,8 @@ C:\Users\Kevin\Source\Repos\CheDioi\WebApiBackendTeste\bin\zh-Hant\System.Spatia
 C:\Users\Kevin\Source\Repos\CheDioi\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.csproj.CopyComplete
 C:\Users\Kevin\Source\Repos\CheDioi\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.dll
 C:\Users\Kevin\Source\Repos\CheDioi\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.pdb
-C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\WebApiBackendTeste.xml
-C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.csprojAssemblyReference.cache
-C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.dll
-C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.pdb
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\WebApiBackendTeste.dll.config
+C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\WebApiBackendTeste.xml
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\WebApiBackendTeste.dll
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\WebApiBackendTeste.pdb
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\roslyn\csc.exe
@@ -209,3 +206,6 @@ C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\ru\System.Spatia
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.csproj.CopyComplete
+C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.dll
+C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.pdb
+C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.csprojAssemblyReference.cache

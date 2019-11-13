@@ -9,14 +9,23 @@ using System.Web;
 namespace WebApiBackendTeste.Model
 {
     [Table("Estados")]
-    public class Estados
+    public class Estados : Link
     {
         [Key]
-        [Column("Id")]
-        public int Idestado { get; set; }
-        [Column("Descricao")]
-        public string Descricao { get; set; }
+        [Column("IdEstado")]
+        public int IdEstado { get; set; }
+
+        [Column("Nome")]
+        public string NomeEstado { get; set; }
         [Column("UF")]
+        [MaxLength(2)]
         public string UF { get; set; }
     }
+    public abstract class Link
+    {
+        public string Href { get; set; }
+        public string Rel { get; set; }
+        public string Metodo { get; set; }
+    }
+
 }
