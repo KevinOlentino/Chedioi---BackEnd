@@ -1,92 +1,80 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Routing;
 using WebApiBackendTeste.Context;
-using WebApiBackendTeste.HateOAS;
 using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Controller
-
 {
     public class EstadosController : ApiController
-    {        
-        public ContextModel db = new ContextModel();
-
-        private readonly ContextModel _context;
-      //  private readonly UrlHelper _urlHelper;
-      /*  public EstadosController (ContextModel context, UrlHelper urlHelper)
-        {
-            _context = context;
-            _urlHelper = urlHelper;
-        }*/
+    {
+        private ContextModel db = new ContextModel();
         public EstadosController()
         {
             db.Configuration.ProxyCreationEnabled = false;
-        }      
+        }
 
-        // GET: api/Estados1
-        public IQueryable<Estado> GetEstados()
+        private readonly ContextModel _context;
+        private readonly UrlHelper _urlHelper;
+        public EstadosController(ContextModel context, UrlHelper urlHelper)
         {
-            var Estados = GetEstados();
-            foreach(var Estado in Estados) {
-                var selflink = new Link
-                {
-                    Rel = "Self",
-                    Href = Url.Route("Api Default", new
-                    {
-                        controller = "EstadosController",
-                        id = Estado.IdEstado
-                    })
-                };
-            }
+            _context = context;
+            _urlHelper = urlHelper;
+        }
+        // GET: api/Estados
+        [Microsoft.AspNetCore.Mvc.HttpGet(Name = nameof(GetEstados))]
+        public async Task<IQueryable<Estado>> GetEstados()
+        {
+            /*foreach (Estado estados in GetEstados())
+            {
+
+            }*/
             return db.Estados;
         }
 
-        // GET: api/Estados1/5
+        // GET: api/Estados/5
         [ResponseType(typeof(Estado))]
-        public IHttpActionResult GetEstados(int id)
+        [Microsoft.AspNetCore.Mvc.HttpGet("{id}", Name = nameof(GetEstado))]
+        public async Task<IHttpActionResult> GetEstado(int id)
         {
-            Estado estados = db.Estados.Find(id);
-            if (estados == null)
+            Estado estado = await db.Estados.FindAsync(id);
+            if (estado == null)
             {
                 return NotFound();
             }
-        //    GerarLinks(estados);
-                return Ok(estados);
+            GerarLinks(estado);
+            return Ok(estado);
         }
 
-        // PUT: api/Estados1/5
+        // PUT: api/Estados/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEstados(int id, Estado estados)
+        public async Task<IHttpActionResult> PutEstado(int id, Estado estado)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != estados.IdEstado)
+            if (id != estado.IdEstado)
             {
                 return BadRequest();
             }
-         //   GerarLinks(estados);
 
-            db.Entry(estados).State = EntityState.Modified;
+            db.Entry(estado).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EstadosExists(id))
+                if (!EstadoExists(id))
                 {
                     return NotFound();
                 }
@@ -99,34 +87,34 @@ namespace WebApiBackendTeste.Controller
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Estados1
+        // POST: api/Estados
         [ResponseType(typeof(Estado))]
-        public IHttpActionResult PostEstados(Estado estados)
-        {            
+        public async Task<IHttpActionResult> PostEstado(Estado estado)
+        {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            db.Estados.Add(estados);            
-            db.SaveChanges();
+            db.Estados.Add(estado);
+            await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = estados.IdEstado }, estados);
+            return CreatedAtRoute("DefaultApi", new { id = estado.IdEstado }, estado);
         }
 
-        // DELETE: api/Estados1/5
+        // DELETE: api/Estados/5
         [ResponseType(typeof(Estado))]
-        public IHttpActionResult DeleteEstados(int id)
+        public async Task<IHttpActionResult> DeleteEstado(int id)
         {
-            Estado estados = db.Estados.Find(id);
-            if (estados == null)
+            Estado estado = await db.Estados.FindAsync(id);
+            if (estado == null)
             {
                 return NotFound();
             }
 
-            db.Estados.Remove(estados);
-            db.SaveChanges();
+            db.Estados.Remove(estado);
+            await db.SaveChangesAsync();
 
-            return Ok(estados);
+            return Ok(estado);
         }
 
         protected override void Dispose(bool disposing)
@@ -137,26 +125,16 @@ namespace WebApiBackendTeste.Controller
             }
             base.Dispose(disposing);
         }
-       /* public void GerarLinks(Estado estados)
+        private void GerarLinks(Estado estados)
         {
-            estados.Link.Add(new Link(_urlHelper.Link(nameof(GetEstados), new { id = estados.IdEstado }), rel: "self", metodo: "GET"));
+            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "self", metodo: "GET"));
 
-            estados.Link.Add(new Link(_urlHelper.Link(nameof(PutEstados), new { id = estados.IdEstado }), rel: "update-estados", metodo: "PUT"));
+            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "update-estados", metodo: "PUT"));
 
-            estados.Link.Add(new Link(_urlHelper.Link(nameof(DeleteEstados), new { id = estados.IdEstado }), rel: "delete-estados", metodo: "DELETE"));
+            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "delete-estados", metodo: "DELETE"));
 
-        }*/
-
-        public abstract class UrlHelper
-        {
-            public abstract string Link(string routeName,
-              IDictionary<string, object> routeValues);
-            public abstract string Link(string routeName, object routeValues);
-            public abstract string Route(string routeName,
-              IDictionary<string, object> routeValues);
-            public abstract string Route(string routeName, object routeValues);
         }
-        private bool EstadosExists(int id)
+        private bool EstadoExists(int id)
         {
             return db.Estados.Count(e => e.IdEstado == id) > 0;
         }

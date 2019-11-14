@@ -8,75 +8,23 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Routing;
 using WebApiBackendTeste.Context;
-using WebApiBackendTeste.HateOAS;
+using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Controller
 {
     public class LinksController : ApiController
     {
+        private readonly UrlHelper _urlHelper;
         private ContextModel db = new ContextModel();
-
-        // GET: api/Links
-        public IQueryable<Link> GetLink()
+        public LinksController()
         {
-            return db.Link;
+            db.Configuration.ProxyCreationEnabled = false;
         }
-
-        // GET: api/Links/5
-        [ResponseType(typeof(Link))]
-        public IHttpActionResult GetLink(int id)
+        public LinksController(UrlHelper urlHelper)
         {
-            Link link = db.Link.Find(id);
-            if (link == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(link);
-        }
-
-        // PUT: api/Links/5
-        [ResponseType(typeof(void))]      
-
-        // POST: api/Links
-        [ResponseType(typeof(Link))]
-        public IHttpActionResult PostLink(Link link)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Link.Add(link);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = link.Id }, link);
-        }
-
-        // DELETE: api/Links/5
-        [ResponseType(typeof(Link))]
-        public IHttpActionResult DeleteLink(int id)
-        {
-            Link link = db.Link.Find(id);
-            if (link == null)
-            {
-                return NotFound();
-            }
-
-            db.Link.Remove(link);
-            db.SaveChanges();
-
-            return Ok(link);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            this._urlHelper = urlHelper;
         }
     }
 }

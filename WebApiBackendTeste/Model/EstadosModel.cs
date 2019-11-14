@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using WebApiBackendTeste.HateOAS;
 
 namespace WebApiBackendTeste.Model
 {
     [Table("Estados")]
-    public class Estado : Link
+    public class Estado : Recurso
     {
         [Key]
         [Column("IdEstado")]
