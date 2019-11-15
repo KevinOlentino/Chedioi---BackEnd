@@ -3,7 +3,8 @@
     "",
     "\\WebApiBackendTeste",
     "\\WebApiBackendTeste\\Context",
-    "\\WebApiBackendTeste\\Controller"
+    "\\WebApiBackendTeste\\Controller",
+    "\\WebApiBackendTeste\\Model"
   ],
   "SelectedNode": "\\WebApiBackendTeste\\WebApiBackendTeste.sln",
   "PreviewInSolutionExplorer": false

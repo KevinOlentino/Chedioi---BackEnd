@@ -7,10 +7,10 @@ namespace WebApiBackendTeste.Model
 {
     public class ColecaoRecursos<T> : Recurso where T : Recurso
     {
-        public List<T> Valores { get; set; }
-        public ColecaoRecursos(List<T> valores)
+        public List<T> Estados { get; set; }
+        public ColecaoRecursos(List<T> estado)
         {
-            Valores = valores;
+            Estados = estado;
         }
     }
 }

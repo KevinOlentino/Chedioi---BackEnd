@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -15,32 +14,29 @@ namespace WebApiBackendTeste.Controller
     public class EstadosController : ApiController
     {
         private ContextModel db = new ContextModel();
+        //private readonly UrlHelper Url = new UrlHelper();
         public EstadosController()
         {
             db.Configuration.ProxyCreationEnabled = false;
         }
-
-        private readonly ContextModel _context;
-        private readonly UrlHelper _urlHelper;
-        public EstadosController(ContextModel context, UrlHelper urlHelper)
-        {
-            _context = context;
-            _urlHelper = urlHelper;
-        }
+      
         // GET: api/Estados
-        [Microsoft.AspNetCore.Mvc.HttpGet(Name = nameof(GetEstados))]
-        public async Task<IQueryable<Estado>> GetEstados()
+        public async Task<ColecaoRecursos<Estado>> GetEstados()
         {
-            /*foreach (Estado estados in GetEstados())
-            {
 
-            }*/
-            return db.Estados;
-        }
+            var estados = await db.Estados.ToListAsync();
+            estados.ForEach(c => GerarLinks(c));
 
+            var resultado = new ColecaoRecursos<Estado>(estados);
+            resultado.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/", rel: "self", metodo: "GET"));
+            resultado.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/", rel: "create-estado", metodo: "POST"));
+
+            return resultado;
+        }        
+      
         // GET: api/Estados/5
         [ResponseType(typeof(Estado))]
-        [Microsoft.AspNetCore.Mvc.HttpGet("{id}", Name = nameof(GetEstado))]
+        [System.Web.Http.ActionName(nameof(GetEstado))]
         public async Task<IHttpActionResult> GetEstado(int id)
         {
             Estado estado = await db.Estados.FindAsync(id);
@@ -88,7 +84,7 @@ namespace WebApiBackendTeste.Controller
         }
 
         // POST: api/Estados
-        [ResponseType(typeof(Estado))]
+        [ResponseType(typeof(Estado))]      
         public async Task<IHttpActionResult> PostEstado(Estado estado)
         {
             if (!ModelState.IsValid)
@@ -127,7 +123,7 @@ namespace WebApiBackendTeste.Controller
         }
         private void GerarLinks(Estado estados)
         {
-            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "self", metodo: "GET"));
+            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/"+ estados.IdEstado, rel: "self", metodo: "GET"));
 
             estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "update-estados", metodo: "PUT"));
 
