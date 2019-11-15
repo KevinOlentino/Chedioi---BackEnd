@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApiBackendTeste.Model
 {
-    public class ColecaoRecursos<T> : Recurso where T : Recurso
+    public interface class ColecaoRecursos<T> : Recurso where T : Recurso
     {
         public List<T> Estados { get; set; }
         public ColecaoRecursos(List<T> estado)
