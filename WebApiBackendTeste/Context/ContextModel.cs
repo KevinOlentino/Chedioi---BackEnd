@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using WebApiBackendTeste.Model;
+﻿using System.Data.Entity;
 using WebApiBackendTeste.Model;
 
 namespace WebApiBackendTeste.Context

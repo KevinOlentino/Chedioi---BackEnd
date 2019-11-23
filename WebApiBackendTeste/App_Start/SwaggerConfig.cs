@@ -27,7 +27,7 @@ namespace WebApiBackendTeste
                 .EnableSwaggerUi(c =>
                     {                       
                         c.DocumentTitle("My Swagger UI");
-                       
+                        c.EnableDiscoveryUrlSelector();
                     });
         }
 

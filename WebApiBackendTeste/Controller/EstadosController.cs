@@ -1,7 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -13,48 +16,100 @@ namespace WebApiBackendTeste.Controller
 {
     public class EstadosController : ApiController
     {
-        private ContextModel db = new ContextModel();
-        //private readonly UrlHelper Url = new UrlHelper();
+        private ContextModel db = new ContextModel();        
         public EstadosController()
         {
             db.Configuration.ProxyCreationEnabled = false;
         }
       
         // GET: api/Estados
-        public async Task<ColecaoRecursos<Estado>> GetEstados()
+        public HttpResponseMessage GetEstados()
         {
+            try
+            {
+                List<EstadosPOCO> estadosPOCOs = db.Estados.Select(estados => new EstadosPOCO()
+                {
+                    IdEstado = estados.IdEstado,
+                    NomeEstado = estados.NomeEstado,
+                    UF = estados.UF,
 
-            var estados = await db.Estados.ToListAsync();
-            estados.ForEach(c => GerarLinks(c));
-
-            var resultado = new ColecaoRecursos<Estado>(estados);
-            resultado.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/", rel: "self", metodo: "GET"));
-            resultado.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/", rel: "create-estado", metodo: "POST"));
-
-            return resultado;
+                    Links = new List<LinkDTO>() {
+                        new LinkDTO()
+                        {
+                            Rel = "self",
+                            Href = "http://localhost/Estados/" + estados.IdEstado.ToString(),
+                            Metodo = "GET"
+                        },
+                         new LinkDTO()
+                        {
+                            Rel = "update-estados",
+                            Href = "http://localhost/Estados/" + estados.IdEstado.ToString(),
+                            Metodo = "PUT"
+                        },
+                          new LinkDTO()
+                        {
+                            Rel = "delete-estados",
+                             Href = "http://localhost/Estados/" + estados.IdEstado.ToString(),
+                            Metodo = "DELETE"
+                        }
+                }
+                }).ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, estadosPOCOs);
+            }
+            catch(Exception ex)
+            {
+               return Request.CreateErrorResponse(HttpStatusCode.BadRequest,ex);
+            }           
         }        
       
-        // GET: api/Estados/5
-        [ResponseType(typeof(Estado))]
-        [System.Web.Http.ActionName(nameof(GetEstado))]
-        public async Task<IHttpActionResult> GetEstado(int id)
+        // GET: api/Estados/{id}
+        public HttpResponseMessage GetEstado(int id)
         {
-            Estado estado = await db.Estados.FindAsync(id);
-            if (estado == null)
+            Estado estado = db.Estados.SingleOrDefault(est => est.IdEstado == id);
+            try
             {
-                return NotFound();
+                EstadosPOCO estadosPOCO = new EstadosPOCO()
+                {
+                    IdEstado = estado.IdEstado,
+                    NomeEstado = estado.NomeEstado,
+                    UF = estado.UF,
+
+                    Links = new List<LinkDTO>() {
+                        new LinkDTO()
+                        {
+                            Rel = "self",
+                            Href = "http://localhost/Estados/" + estado.IdEstado.ToString(),
+                            Metodo = "GET"
+                        },
+                         new LinkDTO()
+                        {
+                            Rel = "update-estados",
+                            Href = "http://localhost/Estados/" + estado.IdEstado.ToString(),
+                            Metodo = "PUT"
+                        },
+                          new LinkDTO()
+                        {
+                            Rel = "delete-estados",
+                             Href = "http://localhost/Estados/" + estado.IdEstado.ToString(),
+                            Metodo = "DELETE"
+                         }
+                     }   
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, estadosPOCO);
             }
-            GerarLinks(estado);
-            return Ok(estado);
+            catch(Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }                     
         }
 
         // PUT: api/Estados/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutEstado(int id, Estado estado)
+        public IHttpActionResult PutEstado(int id, Estado estado)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
 
             if (id != estado.IdEstado)
@@ -66,7 +121,7 @@ namespace WebApiBackendTeste.Controller
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,34 +140,35 @@ namespace WebApiBackendTeste.Controller
 
         // POST: api/Estados
         [ResponseType(typeof(Estado))]      
-        public async Task<IHttpActionResult> PostEstado(Estado estado)
+        public IHttpActionResult PostEstado(Estado estado)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return StatusCode(HttpStatusCode.BadRequest);
             }
-            db.Estados.Add(estado);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = estado.IdEstado }, estado);
+            db.Estados.Add(estado);          
+            db.SaveChanges();
+               
+         return CreatedAtRoute("DefaultApi", new { id = estado.IdEstado }, estado);           
         }
-
+        
         // DELETE: api/Estados/5
+        /*
         [ResponseType(typeof(Estado))]
-        public async Task<IHttpActionResult> DeleteEstado(int id)
+        public IHttpActionResult DeleteEstado(int id)
         {
-            Estado estado = await db.Estados.FindAsync(id);
+            Estado estado = db.Estados.Find(id);
             if (estado == null)
             {
                 return NotFound();
             }
 
             db.Estados.Remove(estado);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return Ok(estado);
+            return OK(estado);
         }
-
+        */
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -121,15 +177,7 @@ namespace WebApiBackendTeste.Controller
             }
             base.Dispose(disposing);
         }
-        private void GerarLinks(Estado estados)
-        {
-            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/"+ estados.IdEstado, rel: "self", metodo: "GET"));
-
-            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "update-estados", metodo: "PUT"));
-
-            estados.Links.Add(new LinkDTO("http://localhost:63811/api/Estados/" + estados.IdEstado, rel: "delete-estados", metodo: "DELETE"));
-
-        }
+     
         private bool EstadoExists(int id)
         {
             return db.Estados.Count(e => e.IdEstado == id) > 0;

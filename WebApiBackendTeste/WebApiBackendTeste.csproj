@@ -252,10 +252,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\ColecaoRecurso.cs" />
     <Compile Include="Model\EstadosModel.cs" />
-    <Compile Include="Model\LinkDTO.cs" />
-    <Compile Include="Model\Recurso.cs" />
+    <Compile Include="Model\POCO\EstadosPOCO.cs" />
+    <Compile Include="Model\POCO\LinkDTO.cs" />
+    <Compile Include="Model\POCO\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
