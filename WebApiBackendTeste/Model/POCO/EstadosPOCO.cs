@@ -6,10 +6,24 @@ using WebApiBackendTeste.Model.POCO;
 
 namespace WebApiBackendTeste.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EstadosPOCO : Resource
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public long IdEstado { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string NomeEstado { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string UF { get; set; }
     }
 }

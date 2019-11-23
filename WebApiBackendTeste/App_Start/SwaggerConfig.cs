@@ -9,8 +9,14 @@ using System.Xml.XPath;
 
 namespace WebApiBackendTeste
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SwaggerConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
