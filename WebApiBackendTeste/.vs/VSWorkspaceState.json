@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controller",
+    "\\Model",
+    "\\Model\\POCO"
   ],
   "SelectedNode": "\\WebApiBackendTeste.sln",
   "PreviewInSolutionExplorer": false

@@ -132,10 +132,6 @@ namespace WebApiBackendTeste.Controller
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            if (id != estado.IdEstado)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
 
             db.Entry(estado).State = EntityState.Modified;
 
