@@ -286,7 +286,6 @@ C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\ko\System.Spatia
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\ru\System.Spatial.resources.dll
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.csprojAssemblyReference.cache
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.csproj.CopyComplete
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.dll
 C:\Users\Kevin\source\repos\ChedioiKevin\WebApiBackendTeste\obj\Debug\WebApiBackendTeste.pdb

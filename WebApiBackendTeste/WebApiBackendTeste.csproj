@@ -249,12 +249,15 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\ContextModel.cs" />
     <Compile Include="Controller\EstadosController.cs" />
+    <Compile Include="Controller\MunicipiosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\EstadosModel.cs" />
+    <Compile Include="Model\MunicipiosModel.cs" />
     <Compile Include="Model\POCO\EstadosPOCO.cs" />
     <Compile Include="Model\POCO\LinkDTO.cs" />
+    <Compile Include="Model\POCO\MunicipiosPOCO.cs" />
     <Compile Include="Model\POCO\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
