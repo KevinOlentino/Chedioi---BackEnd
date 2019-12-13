@@ -27,5 +27,8 @@ namespace WebApiBackendTeste.Context
         /// 
         /// </summary>
         public DbSet<Estado> Estados { get; set; }           
+        /// <summary>
+        /// 
+        /// </summary>
     }
 }

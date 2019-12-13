@@ -108,10 +108,16 @@ namespace WebApiBackendTeste.Controller
                          }
                      }   
                 };
+                
+                if (estado == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound);
+                }
+
                 return Request.CreateResponse(HttpStatusCode.OK, estadosPOCO);
             }
             catch(Exception ex)
-            {
+            {                
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }                     
         }
@@ -147,7 +153,7 @@ namespace WebApiBackendTeste.Controller
                 }
                 else
                 {
-                    throw;
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,ex);
                 }
             }
 
