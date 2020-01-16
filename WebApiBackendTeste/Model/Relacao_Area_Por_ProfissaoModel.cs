@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApiBackendTeste.Model {
     public class Relacao_Area_Por_ProfissaoModel {
@@ -32,10 +34,10 @@ namespace WebApiBackendTeste.Model {
             /// 
             /// </summary>
             [ForeignKey("IdAreaConhecimento")]
-            public AreaConhecimento AreaConhecimento { get; private set; }
+            public AreaDeConhecimento AreaDeConhecimento { get; private set; }
 
             [ForeignKey("IdProfissao")]
-            public Profissao Profissao { get; private set; }
+            public ProfissoesModel Profissao { get; private set; }
 
         }
     }

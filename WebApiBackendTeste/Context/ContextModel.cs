@@ -35,5 +35,9 @@ namespace WebApiBackendTeste.Context
         /// 
         /// </summary>
         public DbSet<AreaDeConhecimento> AreaDeConhecimento { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<ProfissoesModel> Profissões { get; set; }
     }
 }
