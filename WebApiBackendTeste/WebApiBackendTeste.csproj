@@ -266,6 +266,7 @@
     <Compile Include="Model\POCO\LinkDTO.cs" />
     <Compile Include="Model\POCO\MunicipiosPOCO.cs" />
     <Compile Include="Model\POCO\Resource.cs" />
+    <Compile Include="Model\Relacao_Area_Por_ProfissaoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
