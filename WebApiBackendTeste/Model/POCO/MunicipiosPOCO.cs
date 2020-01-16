@@ -23,11 +23,7 @@ namespace WebApiBackendTeste.Model.POCO
         /// <summary>
         /// 
         /// </summary>
-        public int IdEstado {get; set;}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List <LinkDTO> Links { get; set; }
+        public Estado Estado { get; set; }
+        public List<LinkDTO> Links { get; set; }
     }
 }

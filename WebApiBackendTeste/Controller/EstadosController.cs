@@ -15,6 +15,8 @@ namespace WebApiBackendTeste.Controller
     /// <summary>
     /// 
     /// </summary>
+    ///     
+    [RoutePrefix("Api")]
     public class EstadosController : ApiController
     {
         private ContextModel db = new ContextModel();        
@@ -31,6 +33,8 @@ namespace WebApiBackendTeste.Controller
         /// 
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
+        [Route("Estados/")]
         public HttpResponseMessage GetEstados()
         {
             try
@@ -68,14 +72,17 @@ namespace WebApiBackendTeste.Controller
             {
                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,ex);
             }           
-        }        
-      
+        }
+
         // GET: api/Estados/{id}
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("Estados/{id}")]
         public HttpResponseMessage GetEstado(int id)
         {
             Estado estado = db.Estados.SingleOrDefault(est => est.IdEstado == id);
@@ -130,6 +137,8 @@ namespace WebApiBackendTeste.Controller
         /// <param name="estado"></param>
         /// <returns></returns>
         [ResponseType(typeof(void))]
+        [HttpPut]
+        [Route("Estados/{id}")]
         public HttpResponseMessage PutEstado(int id, Estado estado)
         {
             
@@ -167,6 +176,8 @@ namespace WebApiBackendTeste.Controller
         /// <returns></returns>
         // POST: api/Estados
         [ResponseType(typeof(Estado))]      
+        [HttpPost]
+        [Route("Estados/")]
         public HttpResponseMessage PostEstado(Estado estado)
         {
             try
@@ -195,6 +206,8 @@ namespace WebApiBackendTeste.Controller
         /// <param name="id"></param>
         /// <returns></returns>
         [ResponseType(typeof(Estado))]
+        [HttpDelete]
+        [Route("Estados/{id}")]
         public HttpResponseMessage DeleteEstado(int id)
         {
             Estado estado = db.Estados.Find(id);

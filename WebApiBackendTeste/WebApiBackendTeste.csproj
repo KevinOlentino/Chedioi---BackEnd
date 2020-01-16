@@ -241,6 +241,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ContextModel-20191109010226.mdf" />
+    <Content Include="App_Data\ContextModel-20191109010226_log.ldf">
+      <DependentUpon>ContextModel-20191109010226.mdf</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -248,13 +252,16 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Context\ContextModel.cs" />
+    <Compile Include="Controller\AreasDeConhecimentoController.cs" />
     <Compile Include="Controller\EstadosController.cs" />
     <Compile Include="Controller\MunicipiosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\AreasDeConhecimentoModel.cs" />
     <Compile Include="Model\EstadosModel.cs" />
     <Compile Include="Model\MunicipiosModel.cs" />
+    <Compile Include="Model\POCO\AreasDeConhecimentoPOCO.cs" />
     <Compile Include="Model\POCO\EstadosPOCO.cs" />
     <Compile Include="Model\POCO\LinkDTO.cs" />
     <Compile Include="Model\POCO\MunicipiosPOCO.cs" />
@@ -269,9 +276,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,7 +9,7 @@ namespace WebApiBackendTeste.Model
     /// <summary>
     /// 
     /// </summary>
-    public class EstadosPOCO : Resource
+    public class EstadosPOCO
     {
         /// <summary>
         /// 
@@ -25,5 +25,7 @@ namespace WebApiBackendTeste.Model
         /// 
         /// </summary>
         public string UF { get; set; }
+
+        public List<LinkDTO> Links { get; set; }
     }
 }
