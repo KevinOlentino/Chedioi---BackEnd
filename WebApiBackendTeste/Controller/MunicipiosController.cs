@@ -17,6 +17,7 @@ namespace WebApiBackendTeste.Controller
     /// <summary>
     /// 
     /// </summary>
+    [RoutePrefix("Api")]
     public class MunicipiosController : ApiController
     {
         private ContextModel db = new ContextModel();
@@ -26,14 +27,18 @@ namespace WebApiBackendTeste.Controller
         /// 
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage GetMunicipio()
+        [HttpGet]
+        [Route("Municipios/")]
+        public HttpResponseMessage GetMunicipios()
         {
             try 
             {
-                List<MunicipiosPOCO> municipiosPOCOs = db.Municipio.Select(Municipio => new MunicipiosPOCO() {
+
+                List<MunicipiosPOCO> municipiosPOCOs = db.Municipio.Select(Municipio => new MunicipiosPOCO() {                    
                     IdMunicipio = Municipio.IdMunicipio,
-                    NomeMunicipio = Municipio.NomeMunicipio,
-                    IdEstado = Municipio.IdEstado,
+                    NomeMunicipio = Municipio.NomeMunicipio,                    
+                    Estado = Municipio.Estado,
+
                     Links = new List<LinkDTO>()
                 {
                     new LinkDTO()
@@ -73,18 +78,44 @@ namespace WebApiBackendTeste.Controller
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
         [ResponseType(typeof(MunicipiosModel))]
+        [Route("Municipios/{id}")]
         public HttpResponseMessage GetMunicipiosModel(int id)
         {
             MunicipiosModel Municipio = db.Municipio.Find(id);
+            Estado Est = db.Estados.Find(Municipio.IdEstado);
             try
 
             {
                 MunicipiosPOCO municipiosPOCO = new MunicipiosPOCO()
                 {
                     IdMunicipio = Municipio.IdMunicipio,
-                    NomeMunicipio = Municipio.NomeMunicipio,
-                    IdEstado = Municipio.IdEstado,
+                    NomeMunicipio = Municipio.NomeMunicipio,                   
+                    Estado = Est,                    
+
+                    Links = new List<LinkDTO>()
+                    {
+
+                        new LinkDTO()
+                        {
+                        Rel = "self",
+                        Href = "http://localhost/Municipios/" + Municipio.IdMunicipio.ToString(),
+                        Metodo = "GET"
+                        },
+                        new LinkDTO()
+                        {
+                        Rel = "update-Municipio",
+                        Href = "http://localhost/Municipios/" + Municipio.IdMunicipio.ToString(),
+                        Metodo = "PUT"
+                        },
+                        new LinkDTO()
+                        {
+                        Rel = "delete-Municipio",
+                        Href = "http://localhost/Municipios/" + Municipio.IdMunicipio.ToString(),
+                        Metodo = "DELETE"
+                        }
+                    }
                 };
 
 
@@ -108,6 +139,8 @@ namespace WebApiBackendTeste.Controller
         /// <param name="municipiosModel"></param>
         /// <returns></returns>
         [ResponseType(typeof(void))]
+        [HttpPut]
+        [Route("Municipios/{id}")]
         public HttpResponseMessage PutMunicipiosModel(int id, MunicipiosModel municipiosModel)
         {
             if (!ModelState.IsValid)
@@ -148,13 +181,12 @@ namespace WebApiBackendTeste.Controller
         /// <param name="municipiosModel"></param>
         /// <returns></returns>
         [ResponseType(typeof(MunicipiosModel))]
+        [HttpPost]
+        [Route("Municipios/")]
         public HttpResponseMessage PostMunicipiosModel(MunicipiosModel municipiosModel)
         {
             try
             {
-
-
-
                 if (!ModelState.IsValid)
                 {
                     return Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -178,6 +210,8 @@ namespace WebApiBackendTeste.Controller
         /// <param name="id"></param>
         /// <returns></returns>
         [ResponseType(typeof(MunicipiosModel))]
+        [HttpDelete]
+        [Route("Municipios/{id}")]
         public HttpResponseMessage DeleteMunicipiosModel(int id)
         {
             MunicipiosModel municipiosModel = db.Municipio.Find(id);

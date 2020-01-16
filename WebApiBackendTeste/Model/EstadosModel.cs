@@ -20,7 +20,7 @@ namespace WebApiBackendTeste.Model
         /// 
         /// </summary>
         [Column("Nome")]
-        [Required]
+        [Required(ErrorMessage ="O nome do Estado é Obrigatorio", AllowEmptyStrings = false)]
         public string NomeEstado { get; set; }
         
         /// <summary>
@@ -28,7 +28,7 @@ namespace WebApiBackendTeste.Model
         /// </summary>
         [Column("UF")]
         [MaxLength(2)]
-        [Required]
+        [Required(ErrorMessage = "A unidade federativa é Obrigatoria", AllowEmptyStrings = false)]
         public string UF { get; set; }
     }
 }

@@ -31,5 +31,9 @@ namespace WebApiBackendTeste.Context
         /// 
         /// </summary>
         public DbSet<MunicipiosModel> Municipio { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<AreaDeConhecimento> AreaDeConhecimento { get; set; }
     }
 }
